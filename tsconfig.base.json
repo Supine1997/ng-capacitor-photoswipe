@@ -17,8 +17,8 @@
     ],
     "paths": {
       "ng-capacitor-photoswipe": [
-        "dist/ng-capacitor-photoswipe/ng-capacitor-photoswipe",
-        "dist/ng-capacitor-photoswipe"
+        "dist/ng-capacitor-photoswipe",
+        "dist"
       ]
     }
   }

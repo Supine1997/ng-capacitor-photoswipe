@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { NgCapacitorPhotoswipeService } from './ng-capacitor-photoswipe.service';
+import { NgCapacitorPhotoswipeService } from './service';
 
 describe('NgCapacitorPhotoswipeService', () => {
   let service: NgCapacitorPhotoswipeService;

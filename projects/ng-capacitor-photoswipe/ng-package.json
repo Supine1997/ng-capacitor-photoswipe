@@ -1,7 +1,12 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../dist/ng-capacitor-photoswipe",
+  "dest": "../../dist",
   "lib": {
-    "entryFile": "src/public-api.ts"
+    "entryFile": "src/public-api.ts",
+    "umdModuleIds": {
+      "@capacitor/core": ">=2.4.2",
+      "@ionic/angular": ">=5.0.0",
+      "photoswipe": ">=4.1.3"
+    }
   }
 }
