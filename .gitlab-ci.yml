@@ -1,0 +1,54 @@
+stages:
+  - build
+  - clean-dist
+  - push
+  - clean
+
+variables:
+  ORIGIN_SSH_URL: "git@192.168.3.168:tool/ng-capacitor-photoswipe.git"
+
+cache:
+  paths:
+    - node_modules
+    - dist
+    - .git
+
+build-job:
+  stage: build
+  only:
+    - master
+  script:
+    - git checkout master # 切换到master分支
+    - git checkout deploy # 切换到deploy分支
+    - git merge master # 合并master到deploy分支
+    - npm install # 安装依赖
+    - npm run build # 编译
+
+clean-dist-job:
+  stage: clean-dist
+  only:
+    - master
+  script:
+    - git rm --cached -r dist # 删除已存在dist文件夹缓存
+    - git commit -m '🚮 dist' # 提交更改到本地仓库
+  allow_failure: true
+
+push-job:
+  stage: push
+  only:
+    - master
+  script:
+    - git remote set-url origin $ORIGIN_SSH_URL # 重定向为ssh
+    - git add -f dist # 暂存dist文件夹
+    - git commit -m '✅ dist' # 提交更改到本地仓库
+    - git push # 推送到远程deploy分支
+
+clean-job:
+  stage: clean
+  only:
+    - master
+  script:
+    - rm -f -r .git dist #删除.git dist 防止被缓存
+  allow_failure: true
+  when: always
+
