@@ -1,4 +1,4 @@
-import * as PhotoSwipe from 'PhotoSwipe';
+import * as PhotoSwipe from 'photoswipe';
 import * as PhotoSwipeUI_Default from 'photoswipe/dist/photoswipe-ui-default';
 import {PhotoSwipeItem} from './interface';
 import template from './template';
