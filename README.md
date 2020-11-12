@@ -1,27 +1,71 @@
 # NgCapacitorPhotoswipe
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
+Angular+Capacitor的photoswipe插件
 
-## Development server
+## 安装
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+```shell script
+npm install git+http://192.168.3.168:12000/tool/ng-capacitor-photoswipe.git
+```
 
-## Code scaffolding
+## 配置
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+> global.scss
+```scss
+/* photo-swipe */
+@import "~photoswipe/dist/photoswipe.css";
+@import "~photoswipe/dist/default-skin/default-skin.css";
+```
 
-## Build
+## 使用
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+> 导入module
+```typescript
+import { NgCapacitorPhotoswipeModule } from 'ng-capacitor-photoswipe/dist';
 
-## Running unit tests
+@NgModule({
+  imports: [
+    NgCapacitorPhotoswipeModule,
+  ],
+})
+```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### 通过 `directive` 调用
 
-## Running end-to-end tests
+```html
+<!-- 调用单张预览 -->
+<img src="path2pic" libPhotoswipe>
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+<!-- 通过给一组图片设置相同的libPhotoswipe值将改组图片关联预览 -->
+<img src="path2pic1" libPhotoswipe="group1">
+<img src="path2pic2" libPhotoswipe="group1">
+<img src="path2pic3" libPhotoswipe="group1">
+```
 
-## Further help
+### 通过 `injectable` 调用
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+```typescript
+import {NgCapacitorPhotoswipeService} from 'ng-capacitor-photoswipe/dist';
+
+export class SomeNgComponent{
+
+    constructor(
+        private photoswipeService: NgCapacitorPhotoswipeService,
+    ) {
+        // 单张预览 *图片链接
+        this.photoswipeService.singleShow('path2pic');
+        // 多张群组预览 *图片链接
+        this.photoswipeService.show(index, ['path2pic1', 'path2pic2']);
+
+        // 单张预览 *HTMLImageElement
+        this.photoswipeService.showFromElement(aHTMLImageElement);
+        // 多张群组预览 *HTMLImageElement
+        this.photoswipeService.showFromElements(index, [aHTMLImageElement, bHTMLImageElement]);
+    }
+}
+```
+
+## Reference
+
+- [Photoswipe](https://photoswipe.com)
+- [Photoswipe Github](https://github.com/dimsemenov/photoswipe)
