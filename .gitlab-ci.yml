@@ -6,6 +6,7 @@ stages:
 
 variables:
   ORIGIN_SSH_URL: "git@192.168.3.168:tool/ng-capacitor-photoswipe.git"
+  ACTIVE_RUNNER_TAG: "local-cd"
 
 cache:
   paths:
@@ -17,6 +18,8 @@ build-job:
   stage: build
   only:
     - master
+  tags:
+      - $ACTIVE_RUNNER_TAG
   script:
     - git checkout master # 切换到master分支
     - git checkout deploy # 切换到deploy分支
@@ -28,6 +31,8 @@ clean-dist-job:
   stage: clean-dist
   only:
     - master
+  tags:
+      - $ACTIVE_RUNNER_TAG
   script:
     - git rm --cached -r dist # 删除已存在dist文件夹缓存
     - git commit -m '🚮 dist' # 提交更改到本地仓库
@@ -37,6 +42,8 @@ push-job:
   stage: push
   only:
     - master
+  tags:
+      - $ACTIVE_RUNNER_TAG
   script:
     - git remote set-url origin $ORIGIN_SSH_URL # 重定向为ssh
     - git add -f dist # 暂存dist文件夹
@@ -47,6 +54,8 @@ clean-job:
   stage: clean
   only:
     - master
+  tags:
+      - $ACTIVE_RUNNER_TAG
   script:
     - rm -f -r .git dist #删除.git dist 防止被缓存
   allow_failure: true
