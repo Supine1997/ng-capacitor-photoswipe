@@ -19,7 +19,20 @@ npm install git+http://192.168.3.168:12000/tool/ng-capacitor-photoswipe.git
 
 ## 使用
 
-> 导入module
+> 导入AppModule
+```typescript
+import { NgCapacitorPhotoswipeModule } from 'ng-capacitor-photoswipe/dist';
+
+@NgModule({
+  imports: [
+    NgCapacitorPhotoswipeModule.forRoot(),
+  ],
+})
+export class AppModule {}
+```
+
+### 通过 `directive` 调用
+> 在目标Module中导入
 ```typescript
 import { NgCapacitorPhotoswipeModule } from 'ng-capacitor-photoswipe/dist';
 
@@ -29,9 +42,7 @@ import { NgCapacitorPhotoswipeModule } from 'ng-capacitor-photoswipe/dist';
   ],
 })
 ```
-
-### 通过 `directive` 调用
-
+> `template` 中绑定attribute
 ```html
 <!-- 调用单张预览 -->
 <img src="path2pic" libPhotoswipe>

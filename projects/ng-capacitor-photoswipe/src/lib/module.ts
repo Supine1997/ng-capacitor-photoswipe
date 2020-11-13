@@ -1,4 +1,4 @@
-import {NgModule} from '@angular/core';
+import {ModuleWithProviders, NgModule} from '@angular/core';
 import {NgCapacitorPhotoswipeDirective} from './directive';
 import {NgCapacitorPhotoswipeService} from './service';
 
@@ -6,12 +6,18 @@ import {NgCapacitorPhotoswipeService} from './service';
     declarations: [
         NgCapacitorPhotoswipeDirective,
     ],
-    providers: [
-        NgCapacitorPhotoswipeService,
-    ],
     exports: [
         NgCapacitorPhotoswipeDirective,
     ],
 })
 export class NgCapacitorPhotoswipeModule {
+
+    static forRoot(): ModuleWithProviders<NgCapacitorPhotoswipeModule> {
+        return {
+            ngModule: NgCapacitorPhotoswipeModule,
+            providers: [
+                NgCapacitorPhotoswipeService,
+            ],
+        };
+    }
 }

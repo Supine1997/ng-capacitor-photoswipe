@@ -1,4 +1,4 @@
-import {Directive, ElementRef} from '@angular/core';
+import {Directive, ElementRef, HostListener} from '@angular/core';
 import {NgCapacitorPhotoswipeService} from './service';
 
 @Directive({
@@ -6,20 +6,23 @@ import {NgCapacitorPhotoswipeService} from './service';
 })
 export class NgCapacitorPhotoswipeDirective {
     constructor(
-        el: ElementRef,
+        private el: ElementRef,
         private capacitorPhotoswipeService: NgCapacitorPhotoswipeService,
     ) {
-        el.nativeElement.addEventListener('click', () => {
-            // attr上的值
-            const attrValue = el.nativeElement.getAttribute('libPhotoswipe');
-            if (attrValue) { // 如果存在值，则表示为群组显示
-                const imagesNodeArray = document.body.querySelectorAll(`img[libPhotoswipe=${attrValue}]:not(.pswp__img)`);
-                const index = this.getNodeIndexFromList(el.nativeElement, imagesNodeArray);
-                this.capacitorPhotoswipeService.showFromElements(index, imagesNodeArray as any);
-            } else {
-                this.capacitorPhotoswipeService.showFromElement(el.nativeElement);
-            }
-        });
+    }
+
+    @HostListener('click', ['$event'])
+    async onClick(ev): Promise<void> {
+        ev.stopPropagation(); // 停止事件冒泡
+        // attr上的值
+        const attrValue = this.el.nativeElement.getAttribute('libPhotoswipe');
+        if (attrValue) { // 如果存在值，则表示为群组显示
+            const imagesNodeArray = document.body.querySelectorAll(`img[libPhotoswipe=${attrValue}]:not(.pswp__img)`);
+            const index = this.getNodeIndexFromList(this.el.nativeElement, imagesNodeArray);
+            await this.capacitorPhotoswipeService.showFromElements(index, imagesNodeArray as any);
+        } else {
+            await this.capacitorPhotoswipeService.showFromElement(this.el.nativeElement);
+        }
     }
 
     /**
