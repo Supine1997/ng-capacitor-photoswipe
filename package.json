@@ -49,6 +49,7 @@
     "typescript": "~3.9.5"
   },
   "files": [
-      "dist/"
+      "dist/",
+      "projects/"
   ]
 }
