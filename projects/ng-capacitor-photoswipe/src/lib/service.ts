@@ -29,10 +29,6 @@ export class NgCapacitorPhotoswipeService {
     /**
      * 显示单张图片
      * @param src 图片地址
-     * @param option 额外信息 *{
-     *     width:图片宽度,
-     *     height:图片高度,
-     * }
      */
     async singleShow(src: string): Promise<void> {
         return this.show(0, [src]);
